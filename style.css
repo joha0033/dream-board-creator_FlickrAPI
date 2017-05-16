@@ -2,7 +2,19 @@ h2{
   padding-bottom: 25px;
 }
 
+.gallery {
+    display: block;
+    overflow: hidden;
 
+}
+
+img {
+
+    height: 200px;
+    width: 200px;
+
+    min-height: 100%;   /* Scale up to fill container height */
+}
 
 
 body {
