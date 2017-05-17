@@ -3,8 +3,30 @@ h2{
 }
 
 .gallery {
+    margin-top: 16%;
     display: block;
     overflow: hidden;
+}
+
+.btn{
+  margin: -5px;
+  padding-bottom: -5px;
+}
+
+input{
+  background-color: lightgrey;
+}
+nav{
+  z-index: 1;
+  position:fixed;
+  margin-bottom: 5px;
+}
+form {
+    background-color: white;
+    margin-top:4%;
+    position:fixed;
+    top:2%;
+    right:2%;
 }
 
 .clicked {
@@ -13,9 +35,11 @@ h2{
 
 /*.grid-item { width: 200px; }*/
 
+footer{
+  margin-top: -10px;
+}
 
 .output img{
-  display:inline;
   height: 200px;
   width: 100%;
   overflow: hidden;
@@ -31,11 +55,17 @@ h2{
 
 
 body {
+
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     background: "#e8eaf6";
+    z-index: 3;
+
 }
+
+
+
 main {
     flex: 1 0 auto;
 }

@@ -1,3 +1,4 @@
+let selectedImages=[]
 $(document).ready(function(){
       $('.modal').modal();
       carouselMaterialize()
@@ -5,9 +6,14 @@ $(document).ready(function(){
       getPictures()
       $('#clear').on('click', function(){
           $('.output').empty()
+          $('img').removeClass('clicked');
+          selectedImages=[]
+      })
+      $('form').on('scroll', function(){
+
+        console.log("peanuts");
 
       })
-      // gridMasonry()
     });//document.ready
 
 
@@ -58,6 +64,9 @@ function appendImages(url){
    img.appendTo('.gallery');
  }
 
+
+
+
 function selectableToOutput(){
  $(function(){
   var output = $('.output');
@@ -67,29 +76,26 @@ function selectableToOutput(){
       })
       .click(function(){
           var $img = $(this).toggleClass('clicked');
-          if($img.hasClass('clicked'))
+          if($img.hasClass('clicked')){
               output.append($img.clone().removeClass('clicked'));
-          else
+
+            }
+          else{
               output.find('.' + $img[0].className).remove();
+            }
+
       });
 
 });
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+// $('#create').on('click', function(){
+//   console.log("bunnies");
+//   window.location = 'view.html?images='+encodeURIComponent(JSON.stringify(selectedImages))
+//
+// })
 
     //took out token and sig from below.
     //kittens: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9d759785085216b5915d3e5586188a67&format=json&nojsoncallback=1&auth_token=72157683767307786-200f07ef2520561a&api_sig=244342919986ff425cdd58810e25ba85'
