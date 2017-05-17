@@ -1,7 +1,13 @@
 $(document).ready(function(){
+      $('.modal').modal();
       carouselMaterialize()
       materialBoxed()
       getPictures()
+      $('#clear').on('click', function(){
+          $('.output').empty()
+
+      })
+      // gridMasonry()
     });//document.ready
 
 
@@ -13,37 +19,73 @@ function materialBoxed(){
    $('.materialboxed').materialbox()
  }
 
+ function getPictures(){
+   $('form').on('submit', function(event){
+     $('img').remove();
+       event.preventDefault();
+       getFlickrInfo()
+   });
+ }
 
-    function getPictures(){
-      $('form').on('submit', function(event){
-        $('img').remove();
-        event.preventDefault();
-        let searchTag = $('.searchInput').val()
-        let flickrAPI = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b541554a8269b20a62f7d4c43bc7cc47&format=json&nojsoncallback=1';
-        let flickrTag = {
-          tags: searchTag
-        }
-        console.log(searchTag);
-        $.getJSON(flickrAPI, flickrTag, function(data) {
-          console.log(data)
-          for(i=0; i<data.photos.photo.length; i++){
-            let farmData = data.photos.photo[i].farm
-            let serverID = data.photos.photo[i].server
-            let secretData = data.photos.photo[i].secret
-            let idData = data.photos.photo[i].id
-            let urlData = 'https://farm' + farmData + '.staticflickr.com/' + serverID+ '/'+idData+'_'+secretData+'.jpg'
-            console.log(urlData);
-            //$('.gallery').append("<img class=\"materialboxed\" width=\"650\" src=\"" + urlData + ">")
-            var img = $('<img class="materialboxed col s3 row responsive-img">'); //Equivalent: $(document.createElement('img'))
-            img.attr('src', urlData);
-            img.appendTo('.gallery');
-            //$(<img>).attr(src)
-          }
+ function getFlickrInfo(){
+   let searchTag = $('.searchInput').val()
+   let flickrAPI = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b541554a8269b20a62f7d4c43bc7cc47&format=json&nojsoncallback=1';
+   let flickrTag = {
+     text: searchTag
+   }
+   $.getJSON(flickrAPI, flickrTag, function(data) {
+     for(i=0; i<data.photos.photo.length; i++){
+       let urlData = createURL(data.photos.photo[i])
+       appendImages(urlData)
+     }
+     selectableToOutput()
+   })//getJSON
+ }
 
-    })
-  });//getJSON
+ function createURL (photo){
+   let farmData = photo.farm
+   let serverID = photo.server
+   let secretData = photo.secret
+   let idData = photo.id
+   let urlData = 'https://farm' + farmData + '.staticflickr.com/' + serverID+ '/'+idData+'_'+secretData+'.jpg'
+     return urlData
 
+ }
+
+function appendImages(url){
+   var img = $('<img class="container row col s3 img-cropper">'); //Equivalent: $(document.createElement('img'))
+   img.attr('src', url);
+   img.appendTo('.gallery');
+ }
+
+function selectableToOutput(){
+ $(function(){
+  var output = $('.output');
+  $('#selectList img')
+      .each(function(i, el){
+          $(this).addClass('img' + i); // identtify imgs by index (class="imgN")
+      })
+      .click(function(){
+          var $img = $(this).toggleClass('clicked');
+          if($img.hasClass('clicked'))
+              output.append($img.clone().removeClass('clicked'));
+          else
+              output.find('.' + $img[0].className).remove();
+      });
+
+});
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5,15 +5,28 @@ h2{
 .gallery {
     display: block;
     overflow: hidden;
-
 }
 
-img {
+.clicked {
+  border: 1px solid Blue
+}
 
+/*.grid-item { width: 200px; }*/
+
+
+.output img{
+  display:inline;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.img-cropper {
     height: 200px;
-    width: 200px;
-
-    min-height: 100%;   /* Scale up to fill container height */
+    width: 100%;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 
