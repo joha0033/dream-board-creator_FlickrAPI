@@ -47,7 +47,7 @@ footer{
 }
 .collage img{
   max-height:100%;
-  max-width: 50%;
+  /*max-width: 50%;*/
   overflow: hidden;
   object-fit: cover;
 }
@@ -95,4 +95,42 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* ---- NEW NEW ---- */
+
+* { box-sizing: border-box; }
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #DDD;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 45%;
+}
+
+.grid-item {
+  float: right;
+}
+
+.grid-item img {
+  display: block;
+  width: 100%;
 }

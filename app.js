@@ -1,5 +1,6 @@
 let selectedImages=[]
 $(document).ready(function(){
+      $('.collage').hide();
       $('.modal').modal();
       carouselMaterialize()
       materialBoxed()
@@ -57,7 +58,7 @@ function materialBoxed(){
  }
 
 function appendImages(url){
-   var img = $('<img class="container row col s3 img-cropper galImg grid-item">'); //Equivalent: $(document.createElement('img'))
+   var img = $('<img class="container row col s3 img-cropper galImg">'); //Equivalent: $(document.createElement('img'))
    img.attr('src', url);
    img.appendTo('.gallery');
  }
@@ -76,16 +77,32 @@ function selectableToOutput(){
         output.find('.' + $img[0].className).remove();
     }
   });
-
 });
 }
 
 function createCollage(){
+
   $('#create').on('click', function(){
     $('form').hide();
     $('.gallery').hide();
+
     var $collageImage = $(".output").children("img").clone();
-    $(".collage").append($collageImage);
+    console.log($collageImage);
+    $($collageImage).attr('class', '')
+    $collageImage.each(function(){
+      var $gridItem = $('<div class="grid-item"></div>')
+        $($gridItem).append(this);
+        $('.collage').append($gridItem)
+
+    });
+    $('.collage').show();
+
+  $('.collage').masonry({
+      itemSelector: '.grid-item',
+      percentPosition: true,
+      columnWidth: '.grid-sizer'
+    });
+
   })
 }
 
