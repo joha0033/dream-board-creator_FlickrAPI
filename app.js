@@ -9,11 +9,7 @@ $(document).ready(function(){
           $('img').removeClass('clicked');
           selectedImages=[]
       })
-      $('form').on('scroll', function(){
 
-        console.log("peanuts");
-
-      })
     });//document.ready
 
 
@@ -27,8 +23,8 @@ function materialBoxed(){
 
  function getPictures(){
    $('form').on('submit', function(event){
-     $('img').remove();
-       event.preventDefault();
+     event.preventDefault();
+     $('.galImg').remove();
        getFlickrInfo()
    });
  }
@@ -59,7 +55,7 @@ function materialBoxed(){
  }
 
 function appendImages(url){
-   var img = $('<img class="container row col s3 img-cropper">'); //Equivalent: $(document.createElement('img'))
+   var img = $('<img class="container row col s3 img-cropper galImg">'); //Equivalent: $(document.createElement('img'))
    img.attr('src', url);
    img.appendTo('.gallery');
  }
@@ -70,21 +66,17 @@ function appendImages(url){
 function selectableToOutput(){
  $(function(){
   var output = $('.output');
-  $('#selectList img')
-      .each(function(i, el){
-          $(this).addClass('img' + i); // identtify imgs by index (class="imgN")
-      })
-      .click(function(){
-          var $img = $(this).toggleClass('clicked');
-          if($img.hasClass('clicked')){
-              output.append($img.clone().removeClass('clicked'));
-
-            }
-          else{
-              output.find('.' + $img[0].className).remove();
-            }
-
-      });
+  $('#selectList img').each(function(i, el){
+    $(this).addClass('img' + i); // identtify imgs by index (class="imgN")
+  }).click(function(){
+    var $img = $(this).toggleClass('clicked');
+    if($img.hasClass('clicked')){
+        output.append($img.clone().removeClass('clicked').removeClass('galImg'));
+    } else {
+        console.log("removing?!", $img[0]);
+        output.find('.' + $img[0].className).remove();
+    }
+  });
 
 });
 }
