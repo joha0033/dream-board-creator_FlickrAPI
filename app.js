@@ -4,15 +4,17 @@ $(document).ready(function(){
       carouselMaterialize()
       materialBoxed()
       getPictures()
-      $('#clear').on('click', function(){
-          $('.output').empty()
-          $('img').removeClass('clicked');
-          selectedImages=[]
-      })
-
+      clearButton()
+      createCollage();
     });//document.ready
 
-
+function clearButton(){
+  $('#clear').on('click', function(){
+      $('.output').empty()
+      $('img').removeClass('clicked');
+      selectedImages=[]
+  })
+}
 function carouselMaterialize(){
   $('.carousel').carousel()
 }
@@ -55,13 +57,10 @@ function materialBoxed(){
  }
 
 function appendImages(url){
-   var img = $('<img class="container row col s3 img-cropper galImg">'); //Equivalent: $(document.createElement('img'))
+   var img = $('<img class="container row col s3 img-cropper galImg grid-item">'); //Equivalent: $(document.createElement('img'))
    img.attr('src', url);
    img.appendTo('.gallery');
  }
-
-
-
 
 function selectableToOutput(){
  $(function(){
@@ -79,6 +78,15 @@ function selectableToOutput(){
   });
 
 });
+}
+
+function createCollage(){
+  $('#create').on('click', function(){
+    $('form').hide();
+    $('.gallery').hide();
+    var $collageImage = $(".output").children("img").clone();
+    $(".collage").append($collageImage);
+  })
 }
 
 
